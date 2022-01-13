@@ -28,3 +28,20 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: news path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: news
+  - action: utter_news
+
+- story: news_it path
+  steps:
+  - intent: news_it
+  - action: action_news_headline_it
+
+- story: news_us path
+  steps:
+  - intent: news_us
+  - action: action_news_headline_us

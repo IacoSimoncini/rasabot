@@ -89,3 +89,31 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: news
+  examples: |
+    - News
+    - news
+    - newS
+    - NewS
+
+- intent: news_it
+  examples: |
+    - News It
+    - news it
+    - newS IT
+    - NewS iT
+
+- intent: news_us
+  examples: |
+    - News Us
+    - news us
+    - newS US
+    - NewS uS
+
+- intent: news_search
+  examples: |
+    - search news
+    - Search News
+    - Search news
+    - search News
