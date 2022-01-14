@@ -17,6 +17,12 @@ api_key = "4e648c761eb745c68f4e42ebf6d5cbee"
 url_top = 'https://newsapi.org/v2/top-headlines?'
 url_everything = 'https://newsapi.org/v2/everything?'
 
+def search_category(cat):
+    cat = cat.strip()
+    url = url_top + 'country=it&' + 'category=' + cat + '&apiKey=' + api_key
+    response = requests.get(url)
+    return response.json()
+
 def search_news(q):
     url = url_everything + 'q=' + q + '&apiKey=' + api_key
     response = requests.get(url)
@@ -37,10 +43,13 @@ class newsHeadlineIT(Action):
         return "action_news_headline_it"
 
     def run(self, dispatcher, tracker, domain):
-        data = top_headlinesIT()
-        for i in range(len(data)):
-            text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
-            dispatcher.utter_message(text=text_message)
+        try:
+            data = top_headlinesIT()
+            for i in range(len(data)):
+                text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
+                dispatcher.utter_message(text=text_message)
+        except:
+            dispatcher.utter_message(text='Something went wrong')
         return []
 
 class newsHeadlineUS(Action):
@@ -48,9 +57,26 @@ class newsHeadlineUS(Action):
         return "action_news_headline_us"
 
     def run(self, dispatcher, tracker, domain):
-        data = top_headlinesUS()
-        for i in range(len(data)):
-            text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
-            dispatcher.utter_message(text=text_message)
+        try:   
+            data = top_headlinesUS()
+            for i in range(len(data)):
+                text_message = data['articles'][i]['title'] + data['articles'][i]['url']
+                dispatcher.utter_message(text=text_message)
+        except:
+            dispatcher.utter_message(text='Something went wrong')
         return []
 
+class actionNewsCategory(Action):
+    def name(self):
+        return "action_category"
+
+    def run(self, dispatcher, tracker, domain):
+        try:
+            cat = str(tracker.get_slot('category'))
+            data = search_category(cat)
+            for i in range(len(data)):
+                text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
+                dispatcher.utter_message(text=text_message)
+        except:
+            dispatcher.utter_message(text='Something went wrong')
+        return []

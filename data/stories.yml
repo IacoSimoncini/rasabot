@@ -45,3 +45,10 @@ stories:
   steps:
   - intent: news_us
   - action: action_news_headline_us
+
+- story: news_category path
+  steps:
+  - intent: category_news
+  - action: utter_categories
+  - intent: category
+  - action: action_category

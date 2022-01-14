@@ -117,3 +117,30 @@ nlu:
     - Search News
     - Search news
     - search News
+
+- intent: category_news
+  examples: |
+    - Category News
+    - category News
+    - Category news
+    - category news
+
+- intent: category
+  examples: |
+    - [business](category)
+    - [entertainment](category)
+    - [general](category)
+    - [health](category)
+    - [science](category)
+    - [sports](category)
+    - [technology](category)
+
+- lookup: category
+  examples: |
+    - business
+    - entertainment
+    - general
+    - health
+    - science
+    - sports
+    - technology

@@ -12,10 +12,23 @@ intents:
   - news_it
   - news_us
   - news_search
+  - category_news
+  - category
 
 actions:
   - action_news_headline_it
   - action_news_headline_us
+  - action_category
+
+entities:
+  - category
+
+slots:
+  category:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: category
 
 responses:
   utter_greet:
@@ -39,8 +52,13 @@ responses:
         title: "News Us"
       - payload: /search_news
         title: "Search news"
+      - payload: /category_news
+        title: "Select your categories"
       text: "Hi! To know about latest news please select an option"
 
+  utter_categories:
+  - text: "Please, write one of these categories: \n- Business\n- Entertainment\n- General\n- Health\n- Science\n- Sports\n- Technology"
+  
   utter_goodbye:
   - text: "Bye"
 
