@@ -14,11 +14,13 @@ intents:
   - news_search
   - category_news
   - category
+  - topic
 
 actions:
   - action_news_headline_it
   - action_news_headline_us
   - action_category
+  - action_form
 
 entities:
   - category
@@ -29,6 +31,18 @@ slots:
     mappings:
     - type: from_entity
       entity: category
+  topic:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+        - active_loop: search_form
+          requested_slot: topic
+
+forms:
+  search_form:
+    required_slots:
+      - topic
 
 responses:
   utter_greet:
@@ -50,11 +64,11 @@ responses:
         title: "News It"
       - payload: /news_us
         title: "News Us"
-      - payload: /search_news
+      - payload: /news_search
         title: "Search news"
       - payload: /category_news
         title: "Select your categories"
-      text: "Hi! To know about latest news please select an option"
+      text: "To know about latest news please select an option"
 
   utter_categories:
   - text: "Please, write one of these categories: \n- Business\n- Entertainment\n- General\n- Health\n- Science\n- Sports\n- Technology"

@@ -5,11 +5,9 @@
 # https://rasa.com/docs/rasa/custom-actions
 from typing import Dict, Text, Any, List, Union, Optional
 
-from rasa_sdk import Tracker
-from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import AllSlotsReset
 
 from rasa_sdk import Action
-from rasa.core.actions.forms import FormAction
 
 import requests
 
@@ -24,6 +22,7 @@ def search_category(cat):
     return response.json()
 
 def search_news(q):
+    q = q.strip()
     url = url_everything + 'q=' + q + '&apiKey=' + api_key
     response = requests.get(url)
     return response.json()
@@ -80,3 +79,18 @@ class actionNewsCategory(Action):
         except:
             dispatcher.utter_message(text='Something went wrong')
         return []
+
+class actionNewsCategory(Action):
+    def name(self):
+        return "action_form"
+
+    def run(self, dispatcher, tracker, domain):
+        try:
+            q = str(tracker.get_slot('topic'))
+            data = search_news(q)
+            for i in range(len(data)):
+                text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
+                dispatcher.utter_message(text=text_message)
+        except:
+            dispatcher.utter_message(text='Something went wrong')
+        return [AllSlotsReset()]

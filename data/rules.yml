@@ -11,3 +11,22 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Activate form
+  steps:
+  - intent: news_search
+  - action: search_form
+  - active_loop: search_form
+
+- rule: Submit form
+  condition:
+  # Condition that form is active.
+  - active_loop: search_form
+  steps:
+  # Form is deactivated
+  - action: search_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_form

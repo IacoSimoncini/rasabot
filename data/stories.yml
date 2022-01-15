@@ -52,3 +52,15 @@ stories:
   - action: utter_categories
   - intent: category
   - action: action_category
+
+- story: search_form path
+  steps:
+  - intent: news_search
+  - action: search_form
+  - active_loop: search_form
+  - slot_was_set:
+    - requested_slot: topic
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_form

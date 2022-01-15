@@ -1,0 +1,10 @@
+[
+  {
+    "name": "category",
+    "pattern": "(\\bbusiness\\b|\\bentertainment\\b|\\bgeneral\\b|\\bhealth\\b|\\bscience\\b|\\bsports\\b|\\btechnology\\b)"
+  },
+  {
+    "name": "topic",
+    "pattern": "(\\btesla\\b|\\bbreaking\\ news\\b|\\bwhether\\b)"
+  }
+]
