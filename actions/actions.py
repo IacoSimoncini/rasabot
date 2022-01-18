@@ -44,6 +44,7 @@ class newsHeadlineIT(Action):
     def run(self, dispatcher, tracker, domain):
         try:
             data = top_headlinesIT()
+            dispatcher.utter_message(text='This is what i found: ')
             for i in range(len(data)):
                 text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
                 dispatcher.utter_message(text=text_message)
@@ -58,6 +59,7 @@ class newsHeadlineUS(Action):
     def run(self, dispatcher, tracker, domain):
         try:   
             data = top_headlinesUS()
+            dispatcher.utter_message(text='This is what i found: ')
             for i in range(len(data)):
                 text_message = data['articles'][i]['title'] + data['articles'][i]['url']
                 dispatcher.utter_message(text=text_message)
@@ -73,6 +75,7 @@ class actionNewsCategory(Action):
         try:
             cat = str(tracker.get_slot('category'))
             data = search_category(cat)
+            dispatcher.utter_message(text='This is what i found for ' + cat + ':')
             for i in range(len(data)):
                 text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
                 dispatcher.utter_message(text=text_message)
@@ -88,6 +91,7 @@ class actionNewsCategory(Action):
         try:
             q = str(tracker.get_slot('topic'))
             data = search_news(q)
+            dispatcher.utter_message(text='This is what i found for ' + q + ":")
             for i in range(len(data)):
                 text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
                 dispatcher.utter_message(text=text_message)

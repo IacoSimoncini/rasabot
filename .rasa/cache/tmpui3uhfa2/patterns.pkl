@@ -1,0 +1,6 @@
+[
+  {
+    "name": "category",
+    "pattern": "(\\bbusiness\\b|\\bentertainment\\b|\\bgeneral\\b|\\bhealth\\b|\\bscience\\b|\\bsports\\b|\\btechnology\\b)"
+  }
+]

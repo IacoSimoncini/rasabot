@@ -30,3 +30,13 @@ rules:
     - requested_slot: null
   # The actions we want to run when the form is submitted.
   - action: action_form
+
+- rule: Start
+  steps:
+  - intent: start
+  - action: utter_start
+
+- rule: Stop
+  steps:
+  - intent: stop
+  - action: utter_stop

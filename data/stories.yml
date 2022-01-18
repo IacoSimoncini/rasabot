@@ -36,15 +36,22 @@ stories:
   - intent: news
   - action: utter_news
 
+- story: bad path
+  steps:
+  - intent: bad_bot
+  - action: utter_bad_bot
+
 - story: news_it path
   steps:
   - intent: news_it
   - action: action_news_headline_it
+  - action: utter_continue
 
 - story: news_us path
   steps:
   - intent: news_us
   - action: action_news_headline_us
+  - action: utter_continue
 
 - story: news_category path
   steps:
@@ -52,6 +59,17 @@ stories:
   - action: utter_categories
   - intent: category
   - action: action_category
+  - action: utter_continue
+
+- story: start path
+  steps:
+  - intent: start
+  - action: utter_start
+
+- story: stop path
+  steps:
+  - intent: stop
+  - action: utter_stop
 
 - story: search_form path
   steps:

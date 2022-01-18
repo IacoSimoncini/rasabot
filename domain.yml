@@ -15,6 +15,9 @@ intents:
   - category_news
   - category
   - topic
+  - start
+  - stop
+  - bad_bot
 
 actions:
   - action_news_headline_it
@@ -70,11 +73,25 @@ responses:
         title: "Select your categories"
       text: "To know about latest news please select an option"
 
+  utter_start: 
+  - text: "Hi, what do you want to do?"
+
+  utter_continue:
+  - text: "Ask me for more"
+
+  utter_stop:
+  - text: "Goodbye!"
+
   utter_categories:
   - text: "Please, write one of these categories: \n- Business\n- Entertainment\n- General\n- Health\n- Science\n- Sports\n- Technology"
   
   utter_goodbye:
   - text: "Bye"
+
+  utter_bad_bot:
+  - text: "I can be trained to be more useful. My developer will keep training me."
+  - text: "I must be missing some knowledge. I'll have my developer look into this."
+  - text: "I can improve with continuous feedback. My training is ongoing."
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
