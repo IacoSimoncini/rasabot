@@ -1,0 +1,10 @@
+[
+  {
+    "name": "category",
+    "pattern": "(\\bbusiness\\b|\\bentertainment\\b|\\bgeneral\\b|\\bhealth\\b|\\bscience\\b|\\bsports\\b|\\btechnology\\b)"
+  },
+  {
+    "name": "country",
+    "pattern": "(\\bSaudi\\ Arabia\\b|\\bGermany\\b|\\bEngland\\b|\\bSpain\\b|\\bFrance\\b|\\bIsraeli\\b|\\bItaly\\b|\\bHolland\\b|\\bNorway\\b|\\bPortugal\\b|\\bRussia\\b|\\bSweden\\b)"
+  }
+]

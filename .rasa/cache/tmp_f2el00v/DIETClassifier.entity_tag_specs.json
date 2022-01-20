@@ -1,0 +1,36 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-category",
+      "2": "I-category",
+      "3": "L-category",
+      "4": "U-category",
+      "5": "B-datetime",
+      "6": "I-datetime",
+      "7": "L-datetime",
+      "8": "U-datetime",
+      "9": "B-lang",
+      "10": "I-lang",
+      "11": "L-lang",
+      "12": "U-lang",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-category": 1,
+      "I-category": 2,
+      "L-category": 3,
+      "U-category": 4,
+      "B-datetime": 5,
+      "I-datetime": 6,
+      "L-datetime": 7,
+      "U-datetime": 8,
+      "B-lang": 9,
+      "I-lang": 10,
+      "L-lang": 11,
+      "U-lang": 12,
+      "O": 0
+    },
+    "num_tags": 13
+  }
+]

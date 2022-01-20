@@ -36,6 +36,11 @@ stories:
   - intent: news
   - action: utter_news
 
+- story: covid path
+  steps:
+  - intent: covid_news
+  - action: action_corona
+
 - story: bad path
   steps:
   - intent: bad_bot
@@ -60,6 +65,32 @@ stories:
   - intent: category
   - action: action_category
   - action: utter_continue
+
+- story: news_source_bbc path
+  steps:
+  - intent: news_source
+  - action: utter_news_source
+  - intent: bbc_source
+  - action: action_bbc
+
+- story: news_source_abc path
+  steps:
+  - intent: news_source
+  - action: utter_news_source
+  - intent: abc_source
+  - action: action_abc
+
+- story: news_source_bbc path
+  steps:
+  - intent: news_source
+  - action: utter_news_source
+  - intent: cnn_source
+  - action: action_cnn
+
+- story: news_general path
+  steps:
+  - intent: general_news
+  - action: action_general
 
 - story: start path
   steps:

@@ -3,7 +3,11 @@
 #
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
-from typing import Dict, Text, Any, List, Union, Optional
+from datetime import datetime
+from multiprocessing.sharedctypes import Value
+from typing import Dict, Text, Any, List
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk import Action, Tracker
 
 from rasa_sdk.events import AllSlotsReset
 
@@ -14,16 +18,42 @@ import requests
 api_key = "4e648c761eb745c68f4e42ebf6d5cbee"
 url_top = 'https://newsapi.org/v2/top-headlines?'
 url_everything = 'https://newsapi.org/v2/everything?'
+country_dict = {
+    'Saudi Arabia': 'ar',
+    'Germany': 'de',
+    'England': 'en',
+    'Spain': 'es',
+    'France': 'fr',
+    'Israeli': 'he',
+    'Italy': 'it',
+    'Holland': 'nl',
+    'Norway': 'no',
+    'Portugal': 'pt',
+    'Russia': 'ru',
+    'Sweden': 'se'
+}
 
-def search_category(cat):
+def general_search(lang):
+    url = url_top + 'country=' + lang + '&apiKey=' + api_key
+    response = requests.get(url)
+    return response.json()
+
+def search_category(cat, lang):
     cat = cat.strip()
-    url = url_top + 'country=it&' + 'category=' + cat + '&apiKey=' + api_key
+    url = url_top + 'country=it&category=' + cat + '&apiKey=' + api_key
     response = requests.get(url)
     return response.json()
 
 def search_news(q):
     q = q.strip()
     url = url_everything + 'q=' + q + '&apiKey=' + api_key
+    response = requests.get(url)
+    return response.json()
+
+def search_news_time(q, time):
+    q = q.strip()
+    time = time.strip()
+    url = url_everything + 'q=' + q + "from=" + time + '&apiKey=' + api_key
     response = requests.get(url)
     return response.json()
 
@@ -37,11 +67,76 @@ def top_headlinesUS():
     response = requests.get(url)
     return response.json()
 
+def news_source(source):
+	url = url_top + 'sources=' + source
+	response=requests.get(url + '&' + 'apiKey=' + api_key)
+	data=response.json()
+	return data
+
+def covid():
+    return requests.get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json').json()
+
+
+class ActionCoronaTracker(Action):
+
+    def name(self) -> Text:
+        return "action_corona"
+
+    def run(self, dispatcher: CollectingDispatcher,
+             tracker: Tracker,
+             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            response = covid()
+            print(response)
+
+        except:
+            dispatcher.utter_message("Sorry: Could not get information due to an internal error")
+
+        return []
+
+class NewsBBC(Action):
+    
+    def name(self):
+        return "action_bbc"
+    
+    def run(self, dispatcher, tracker, domain):
+        data = news_source("bbc-news")
+        for i in range(len(data)):
+            text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
+            dispatcher.utter_message(text=text_message)
+        return []
+
+class NewsABC(Action):
+    
+    def name(self):
+        return "action_abc"
+    
+    def run(self, dispatcher, tracker, domain):
+        data = news_source("abc-news")
+        for i in range(len(data)):
+            text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
+            dispatcher.utter_message(text=text_message)
+        return []
+
+class NewsCNN(Action):
+    
+    def name(self):
+        return "action_cnn"
+    
+    def run(self, dispatcher, tracker, domain):
+        data = news_source("cnn")
+        for i in range(len(data)):
+            text_message = data['articles'][i]['title'] + " " + data['articles'][i]['url']
+            dispatcher.utter_message(text=text_message)
+        return []
+
 class newsHeadlineIT(Action):
     def name(self):
         return "action_news_headline_it"
 
     def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text='ACTION HEADLINE IT')
         try:
             data = top_headlinesIT()
             dispatcher.utter_message(text='This is what i found: ')
@@ -57,6 +152,7 @@ class newsHeadlineUS(Action):
         return "action_news_headline_us"
 
     def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text='ACTION HEADLINE US')
         try:   
             data = top_headlinesUS()
             dispatcher.utter_message(text='This is what i found: ')
@@ -72,9 +168,10 @@ class actionNewsCategory(Action):
         return "action_category"
 
     def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text='ACTION CATEGORY')
         try:
             cat = str(tracker.get_slot('category'))
-            data = search_category(cat)
+            data = search_category(cat, lang='it')
             dispatcher.utter_message(text='This is what i found for ' + cat + ':')
             for i in range(len(data)):
                 text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
@@ -88,10 +185,32 @@ class actionNewsCategory(Action):
         return "action_form"
 
     def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text='ACTION FORM')
         try:
             q = str(tracker.get_slot('topic'))
-            data = search_news(q)
+            time = str(tracker.get_slot('time'))
+            if time is None:
+                data = search_news(q)
+            else:
+                data = search_news_time(q, time)
             dispatcher.utter_message(text='This is what i found for ' + q + ":")
+            for i in range(len(data)):
+                text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
+                dispatcher.utter_message(text=text_message)
+        except:
+            dispatcher.utter_message(text='Something went wrong')
+        return [AllSlotsReset()]
+
+class actionNewsGeneral(Action):
+    def name(self):
+        return "action_general"
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text='ACTION GENERAL')
+        try:
+            lang = str(tracker.get_slot('lang'))
+            country = country_dict[lang]
+            data = general_search(country)
             for i in range(len(data)):
                 text_message = "Title: " + data['articles'][i]['title'] + "\n" + "Description: " + data['articles'][i]['description'] + "\n" + "Url: " + data['articles'][i]['url'] + "\n"
                 dispatcher.utter_message(text=text_message)

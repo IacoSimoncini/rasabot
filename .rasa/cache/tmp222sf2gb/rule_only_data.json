@@ -1,0 +1,7 @@
+{
+  "rule_only_slots": [],
+  "rule_only_loops": [
+    "search_form",
+    "search_form_time"
+  ]
+}

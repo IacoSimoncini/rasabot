@@ -1,0 +1,14 @@
+[
+  {
+    "name": "category",
+    "pattern": "(\\bbusiness\\b|\\bentertainment\\b|\\bgeneral\\b|\\bhealth\\b|\\bscience\\b|\\bsports\\b|\\btechnology\\b)"
+  },
+  {
+    "name": "lang",
+    "pattern": "(\\bar\\b|\\bde\\b|\\ben\\b|\\bes\\b|\\bfr\\b|\\bhe\\b|\\bit\\b|\\bnl\\b|\\bno\\b|\\bpt\\b|\\bru\\b|\\bse\\b)"
+  },
+  {
+    "name": "datetime",
+    "pattern": "(\\b2021\\-12\\-10\\b|\\b2019\\-12\\-05\\b|\\b1998\\-01\\-08\\b|\\b2010\\-02\\-25\\b|\\b2002\\-03\\-26\\b|\\b2000\\-06\\-15\\b)"
+  }
+]

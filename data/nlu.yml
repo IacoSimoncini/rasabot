@@ -140,6 +140,33 @@ nlu:
     - tell me about the news in Italy
     - do you have any news about Italy?
     - show me some news about Italy
+    - give me the headlines about Italy
+
+- intent: news_source
+  examples: |
+    - news source
+    - give me news from a specific source
+    - have you got any news from specific source?
+
+- intent: covid_news
+  examples: |
+    - corona cases
+    - covid news
+
+- intent: bbc_source
+  examples: |
+    - bbc news
+    - bbc
+
+- intent: abc_source
+  examples: |
+    - abc news
+    - abc
+
+- intent: cnn_source
+  examples: |
+    - cnn news
+    - cnn
 
 - intent: news_us
   examples: |
@@ -150,6 +177,7 @@ nlu:
     - tell me about the news in the United States
     - do you have any news about United States?
     - show me some news about United States
+    - give me the headlines about United States
 
 - intent: news_search
   examples: |
@@ -198,3 +226,32 @@ nlu:
   examples: |
     - stop
     - Stop
+
+- intent: general_news
+  examples: |
+    - tell me about [Italy](country)
+    - give me some news about [United States](country)
+    - I want the headlines in [Germany](country)
+    - I want the headlines in [England](country)
+    - I want the headlines in [Spain](country)
+    - I want the headlines in [France](country)
+    - I want the headlines in [Israeli](country)
+    - I want the headlines in [Saudi Arabia](country)
+    - I want the headlines in [Israeli](country)
+    - I want the headlines in [Holland](country)
+    - I want the headlines in [Portugal](country)
+
+- lookup: country
+  examples: |
+    - Saudi Arabia
+    - Germany
+    - England
+    - Spain
+    - France
+    - Israeli
+    - Italy
+    - Holland
+    - Norway
+    - Portugal
+    - Russia
+    - Sweden

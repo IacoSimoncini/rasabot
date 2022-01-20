@@ -18,17 +18,35 @@ intents:
   - start
   - stop
   - bad_bot
+  - general_news
+  - cnn_source
+  - abc_source
+  - bbc_source
+  - news_source
+  - covid_news
 
 actions:
   - action_news_headline_it
   - action_news_headline_us
   - action_category
   - action_form
+  - action_general
+  - action_bbc
+  - action_cnn
+  - action_abc
+  - action_corona
 
 entities:
   - category
+  - country
+  - datetime
 
-slots:
+slots: 
+  lang:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: country
   category:
     type: text
     mappings:
@@ -41,11 +59,24 @@ slots:
       conditions:
         - active_loop: search_form
           requested_slot: topic
+  time:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+        - active_loop: search_form
+          requested_slot: time
+  datetime:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: datetime
 
 forms:
   search_form:
     required_slots:
       - topic
+      - time
 
 responses:
   utter_greet:
@@ -61,6 +92,12 @@ responses:
   utter_happy:
   - text: "Great, carry on!"
 
+  utter_news_source:
+  - text: "Please, insert a source name"
+
+  utter_topic:
+  - text: "Please, insert a word"
+
   utter_news:
     - buttons:
       - payload: /news_it
@@ -75,9 +112,12 @@ responses:
 
   utter_start: 
   - text: "Hi, what do you want to do?"
+  - text: "Hello, ask me what you want"
+  - text: "Hi, tell me which news you want today"
 
   utter_continue:
   - text: "Ask me for more"
+  - text: "You can ask me more if you want"
 
   utter_stop:
   - text: "Goodbye!"

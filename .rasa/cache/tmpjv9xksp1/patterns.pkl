@@ -1,0 +1,14 @@
+[
+  {
+    "name": "category",
+    "pattern": "(\\bbusiness\\b|\\bentertainment\\b|\\bgeneral\\b|\\bhealth\\b|\\bscience\\b|\\bsports\\b|\\btechnology\\b)"
+  },
+  {
+    "name": "country",
+    "pattern": "(\\bItaly\\b|\\bUnited\\ States\\b|\\bVenezuela\\b)"
+  },
+  {
+    "name": "datetime",
+    "pattern": "(\\b2021\\-12\\-10\\b|\\b2019\\-12\\-05\\b|\\b1998\\-01\\-08\\b|\\b2010\\-02\\-25\\b|\\b2002\\-03\\-26\\b|\\b2000\\-06\\-15\\b)"
+  }
+]
