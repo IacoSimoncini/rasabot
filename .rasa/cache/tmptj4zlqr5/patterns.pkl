@@ -1,0 +1,14 @@
+[
+  {
+    "name": "region",
+    "pattern": "(\\bAbruzzo\\b|\\bBasilicata\\b|\\bCalabria\\b|\\bCampania\\b|\\bEmilia\\-Romagna\\b|\\bFriuli\\ Venezia\\ Giulia\\b|\\bLazio\\b|\\bLiguria\\b|\\bLombardia\\b|\\bMarche\\b|\\bMolise\\b|\\bP\\.A\\.\\ Bolzano\\b|\\bP\\.A\\.\\ Trento\\b|\\bPiemonte\\b|\\bPuglia\\b|\\bSardegna\\b|\\bSicilia\\b|\\bToscana\\b|\\bUmbria\\b|\\bValle\\ d'Aosta\\b|\\bVeneto\\b|\\bTrentino\\b)"
+  },
+  {
+    "name": "category",
+    "pattern": "(\\bbusiness\\b|\\bentertainment\\b|\\bgeneral\\b|\\bhealth\\b|\\bscience\\b|\\bsports\\b|\\btechnology\\b)"
+  },
+  {
+    "name": "country",
+    "pattern": "(\\bSaudi\\ Arabia\\b|\\bGermany\\b|\\bEngland\\b|\\bSpain\\b|\\bFrance\\b|\\bIsraeli\\b|\\bItaly\\b|\\bHolland\\b|\\bNorway\\b|\\bPortugal\\b|\\bRussia\\b|\\bSweden\\b)"
+  }
+]

@@ -3,7 +3,7 @@
 #
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
-from datetime import datetime
+from datetime import date, datetime
 from multiprocessing.sharedctypes import Value
 from typing import Dict, Text, Any, List
 from rasa_sdk.executor import CollectingDispatcher
@@ -74,10 +74,9 @@ def news_source(source):
 	return data
 
 def covid():
-    return requests.get('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json').json()
+    return requests.get("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json").json() 
 
-
-class ActionCoronaTracker(Action):
+class ActionCorona(Action):
 
     def name(self) -> Text:
         return "action_corona"
@@ -85,15 +84,34 @@ class ActionCoronaTracker(Action):
     def run(self, dispatcher: CollectingDispatcher,
              tracker: Tracker,
              domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         try:
             response = covid()
-            print(response)
-
+            reg = tracker.get_slot("region")
+            reg = reg.capitalize()
+            if reg == 'Trento' or reg == 'Bolzano':
+                reg = "P.A. " + reg
+            message = "I can't find the requested region"
+            date = str(response[0]["data"]).split('T')[0]
+            if "Trentino" in reg:
+                tp = 0
+                np = 0
+                to = 0
+                ti = 0
+                for r in response:
+                    if r["denominazione_regione"]=='P.A. Bolzano' or r["denominazione_regione"]=='P.A. Trento':
+                        tp = tp + r["totale_positivi"]
+                        np = np + r["nuovi_positivi"]
+                        to = to + r["totale_ospedalizzati"]
+                        ti = ti + r["terapia_intensiva"]
+                    message = "Number of covid infected in Trentino Alto Adige :" + str(tp)+"\n" + "Today's infections: "+ str(np)+"\n"+ "Hospitalized: "+ str(to)+"\n"+ "Intensive care: "+ str(ti) + "\n" + "Last update: " + date
+            else:
+                for r in response:
+                    if r["denominazione_regione"] == reg:
+                        message = "Number of covid infected in "+ reg + ": " + str(r["totale_positivi"]) +"\n" + "Today's infections: "+ str(r["nuovi_positivi"]) +"\n"+ "Hospitalized: "+ str(r["totale_ospedalizzati"]) +"\n"+ "Intensive care: "+ str(r["terapia_intensiva"]) + "\n" + "Last update: " +  date
+            dispatcher.utter_message(text=message)
         except:
             dispatcher.utter_message("Sorry: Could not get information due to an internal error")
-
-        return []
+        return [AllSlotsReset()]
 
 class NewsBBC(Action):
     

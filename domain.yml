@@ -24,6 +24,7 @@ intents:
   - bbc_source
   - news_source
   - covid_news
+  - region
 
 actions:
   - action_news_headline_it
@@ -40,8 +41,14 @@ entities:
   - category
   - country
   - datetime
+  - region
 
 slots: 
+  region:
+    type: text
+    mappings: 
+    - type: from_entity
+      entity: region
   lang:
     type: text
     mappings:
@@ -88,6 +95,9 @@ responses:
 
   utter_did_that_help:
   - text: "Did that help you?"
+
+  utter_covid:
+  - text: "Please, insert a region"
 
   utter_happy:
   - text: "Great, carry on!"

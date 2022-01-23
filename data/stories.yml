@@ -39,6 +39,8 @@ stories:
 - story: covid path
   steps:
   - intent: covid_news
+  - action: utter_covid
+  - intent: region
   - action: action_corona
 
 - story: bad path

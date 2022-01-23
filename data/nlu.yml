@@ -148,6 +148,56 @@ nlu:
     - give me news from a specific source
     - have you got any news from specific source?
 
+- intent: region
+  examples: |
+    - [Abruzzo](region)
+    - [Basilicata](region)
+    - [Calabria](region)
+    - [Campania](region)
+    - [Emilia-Romagna](region)
+    - [Friuli Venezia Giulia](region)
+    - [Lazio](region)
+    - [Liguria](region)
+    - [Lombardia](region)
+    - [Marche](region)
+    - [Molise](region)
+    - [Bolzano](region)
+    - [Trento](region)
+    - [Piemonte](region)
+    - [Puglia](region)
+    - [Sardegna](region)
+    - [Sicilia](region)
+    - [Toscana](region)
+    - [Umbria](region)
+    - [Valle d'Aosta](region)
+    - [Veneto](region)
+    - [Trentino](region)
+
+- lookup: region
+  examples: |
+    - Abruzzo
+    - Basilicata
+    - Calabria
+    - Campania
+    - Emilia-Romagna
+    - Friuli Venezia Giulia
+    - Lazio
+    - Liguria
+    - Lombardia
+    - Marche
+    - Molise
+    - Bolzano
+    - Trento
+    - Piemonte
+    - Puglia
+    - Sardegna
+    - Sicilia
+    - Toscana
+    - Umbria
+    - Valle d'Aosta
+    - Veneto
+    - Trentino
+
 - intent: covid_news
   examples: |
     - corona cases
