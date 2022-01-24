@@ -154,7 +154,6 @@ class newsHeadlineIT(Action):
         return "action_news_headline_it"
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text='ACTION HEADLINE IT')
         try:
             data = top_headlinesIT()
             dispatcher.utter_message(text='This is what i found: ')
@@ -170,7 +169,6 @@ class newsHeadlineUS(Action):
         return "action_news_headline_us"
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text='ACTION HEADLINE US')
         try:   
             data = top_headlinesUS()
             dispatcher.utter_message(text='This is what i found: ')
@@ -186,7 +184,6 @@ class actionNewsCategory(Action):
         return "action_category"
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text='ACTION CATEGORY')
         try:
             cat = str(tracker.get_slot('category'))
             data = search_category(cat, lang='it')
@@ -203,7 +200,6 @@ class actionNewsCategory(Action):
         return "action_form"
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text='ACTION FORM')
         try:
             q = str(tracker.get_slot('topic'))
             time = str(tracker.get_slot('time'))
@@ -224,7 +220,6 @@ class actionNewsGeneral(Action):
         return "action_general"
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text='ACTION GENERAL')
         try:
             lang = str(tracker.get_slot('lang'))
             country = country_dict[lang]
